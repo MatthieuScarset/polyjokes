@@ -10,10 +10,6 @@ contract Texts is Ownable {
 
     mapping(address => string[]) private texts;
 
-    function getTexts() public view returns (string[] memory) {
-        return texts[msg.sender];
-    }
-
     function getTexts(address author) public view returns (string[] memory) {
         return texts[author];
     }
