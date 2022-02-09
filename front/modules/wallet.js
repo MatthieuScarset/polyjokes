@@ -7,7 +7,7 @@ class Wallet {
     this.element = domElement;
     this.stateKey = "wallet";
     this.storage = localStorage || window.localStorage;
-    this.status = Boolean(this.getAccount());
+    this.status = Boolean(this.getAccount()) ? 1 : 0;
   }
 
   // State management.
@@ -30,7 +30,7 @@ class Wallet {
       .then((accounts) => {
         messages("Connection successful!");
         this.setAccount(accounts[0]);
-        this.status = true;
+        this.status = 1;
         // @todo Trigger onConnect event.
         this.resetDisplay();
       })
@@ -43,7 +43,7 @@ class Wallet {
 
   disconnect = () => {
     this.removeAccount();
-    this.status = false;
+    this.status = -1;
 
     // @todo Trigger onDisconnect event.
   };
@@ -57,11 +57,17 @@ class Wallet {
   displayWalletStatus = () => {
     let message = "";
 
-    message += this.status
-      ? "Connected: " + "<br>" + "<code>" + this.getAccount() + "</code>"
-      : !Boolean(ethereum)
-      ? "No wallet detected."
-      : "Not connected.";
+    message += !Boolean(ethereum) ? "No wallet detected." : "";
+    message += this.status == 0 ? "Not connected." : "";
+    message += this.status == -1 ? "Disconnected." : "";
+    message +=
+      this.status == 1
+        ? "Connected: " +
+          "<br>" +
+          '<code class="block p-2 bg-slate-800 text-white">' +
+          this.getAccount() +
+          "</code>"
+        : "";
 
     if (!Boolean(ethereum)) {
       // Install wallet suggestion.
@@ -78,7 +84,12 @@ class Wallet {
 
   displayWalletButton = () => {
     this.element.disabled = !Boolean(ethereum);
-    this.element.innerHTML = this.status ? "Disconnect" : "Connect";
+    this.element.innerHTML =
+      this.status == -1
+        ? "Reconnect"
+        : this.status == 1
+        ? "Disconnect"
+        : "Connect";
     this.element.addEventListener("click", this.onClick, true);
   };
 
@@ -86,7 +97,7 @@ class Wallet {
   onClick = async () => {
     this.element.disabled = true;
 
-    if (!this.status) {
+    if (this.status !== 1) {
       // Try to connect.
       this.element.innerText = "Loading...";
       this.connect();
