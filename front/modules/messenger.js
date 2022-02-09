@@ -86,7 +86,7 @@ class Messenger {
     // Remove after 3s.
     setTimeout(() => {
       item.remove();
-    }, 5000);
+    }, 3000);
   };
 
   onClickClose = (event) => {
