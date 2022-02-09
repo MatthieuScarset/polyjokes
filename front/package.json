@@ -1,11 +1,11 @@
 {
-  "name": "dapp",
+  "name": "dapp-front",
   "version": "1.0.0",
-  "description": "A project template for your web3 application.",
+  "description": "",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MatthieuScarset/dapp-project-template.git"
+    "url": "git+https://github.com/MatthieuScarset/polyjokes.git"
   },
   "author": {
     "name": "Matthieu SCARSET",

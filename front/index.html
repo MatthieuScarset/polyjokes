@@ -4,12 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Polyjokes</title>
+    <title>Dapp project template</title>
     <meta
       name="description"
       content="An amazing dapp to make your life better."
     />
-    <meta name="keywords" content="" />
+    <meta
+      name="keywords"
+      content="dapp, JavaScript, Solidity, Ethereum, Blockchain"
+    />
     <meta name="author" content="Matthieu SCARSET" />
     <link rel="icon" type="image/png" href="icon.svg" />
     <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -24,9 +27,8 @@
         class="flex flex-row items-center space-x-6 py-6 hover:text-teal-600"
         href="/"
       >
-        <span class="sr-only">Workflow</span>
         <img class="h-8 w-auto sm:h-10 px-2" src="icon.svg" alt="Logo" />
-        <h1 id="contractName" tabindex="0">Contract</h1>
+        <h1 class="contract-name" tabindex="0">Dapp project template</h1>
       </a>
 
       <nav class="flex space-x-10 px-2" role="main">
@@ -41,23 +43,34 @@
     </header>
 
     <main class="max-w-4xl m-auto py-6 border-t-2 border-b-2 border-gray-100">
-      <!-- Here goes your dapp's content. -->
+      <section id="contract"></section>
     </main>
 
+    <!-- Section required by `modules/messages.js` -->
     <section
       id="messages"
       class="absolute bottom-6 right-6 h-fit max-w-sm m-auto"
-    >
-      <!-- Section required by `modules/messages.js` -->
-    </section>
+    ></section>
 
     <footer
       class="max-w-4xl m-auto mx-auto py-10 text-center flex items-center justify-center text-sm text-gray-500"
     >
-      <p>&copy; 2022 nobody. Absolutely no rights reserved.</p>
+      <p>Copyright &copy; 2022</p>
+      <p class="ml-3 border-l border-gray-200 pl-3">
+        Absolutely
+        <a
+          target="_blank"
+          title="Read license in a new tab"
+          class="hover:text-teal-600"
+          href="./LICENSE"
+        >
+          no rights reserved</a
+        >
+      </p>
       <p class="ml-3 border-l border-gray-200 pl-3">
         <a
           target="_blank"
+          title="View author's website in a new tab"
           class="hover:text-teal-600"
           href="https://matthieuscarset.com"
           >Contact</a
