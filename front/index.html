@@ -30,25 +30,29 @@
       </a>
 
       <nav class="flex space-x-10 px-2" role="main">
-        <button id="walletButton" class="hover:text-teal-600" disabled>
+        <button
+          id="walletButton"
+          class="cursor-pointer hover:text-teal-600"
+          disabled
+        >
           Connect
         </button>
       </nav>
     </header>
 
-    <main
-      class="max-w-4xl m-auto py-6 border-t-2 border-b-2 border-gray-100"
-    ></main>
+    <main class="max-w-4xl m-auto py-6 border-t-2 border-b-2 border-gray-100">
+      <!-- Here goes your dapp's content. -->
+    </main>
 
     <section
       id="messages"
-      class="hidden absolute bottom-6 right-6 h-fit max-w-sm m-auto bg-white p-6 rounded-lg shadow-2xl border-2 border-gray-400"
+      class="absolute bottom-6 right-6 h-fit max-w-sm m-auto"
     >
       <!-- Section required by `modules/messages.js` -->
     </section>
 
     <footer
-      class="w-full max-w-container mx-auto border-t py-10 text-center flex items-center justify-center text-sm text-gray-500"
+      class="max-w-4xl m-auto mx-auto py-10 text-center flex items-center justify-center text-sm text-gray-500"
     >
       <p>&copy; 2022 nobody. Absolutely no rights reserved.</p>
       <p class="ml-3 border-l border-gray-200 pl-3">

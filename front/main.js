@@ -1,12 +1,16 @@
+import { Messenger } from "./modules/messenger.js";
 import { Wallet } from "./modules/wallet.js";
+const storage = window.localStorage;
 
 const initialize = () => {
-  const storage = window.localStorage;
+  const messageBoxes = document.getElementById("messages");
+  const messenger = new Messenger(messageBoxes);
+  messenger.initialize();
 
   // Connect button.
   const walletButton = document.getElementById("walletButton");
   const wallet = new Wallet(walletButton, storage);
-  wallet.resetDisplay();
+  wallet.initialize();
 };
 
 window.addEventListener("DOMContentLoaded", initialize);

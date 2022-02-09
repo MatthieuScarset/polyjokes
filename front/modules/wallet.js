@@ -1,4 +1,4 @@
-import messages from "./messages.js";
+import { Messenger } from "./messenger.js";
 
 const { ethereum } = window;
 
@@ -8,55 +8,19 @@ class Wallet {
     this.stateKey = "wallet";
     this.storage = localStorage || window.localStorage;
     this.status = Boolean(this.getAccount()) ? 1 : 0;
+    this.messenger = new Messenger("#messages");
   }
 
-  // State management.
-  getAccount = () => {
-    return this.storage.getItem(this.stateKey);
-  };
+  initialize = () => {
+    // Attach click event.
+    this.element.addEventListener("click", this.onClick, true);
 
-  setAccount = (value) => {
-    this.storage.setItem(this.stateKey, value);
-  };
+    // Refresh button.
+    this.element.disabled = !Boolean(ethereum);
+    this.label();
 
-  removeAccount = () => {
-    this.storage.removeItem(this.stateKey);
-  };
-
-  // Utilities.
-  connect = async () => {
-    await ethereum
-      .request({ method: "eth_requestAccounts" })
-      .then((accounts) => {
-        messages("Connection successful!");
-        this.setAccount(accounts[0]);
-        this.status = 1;
-        // @todo Trigger onConnect event.
-        this.resetDisplay();
-      })
-      .catch((error) => {
-        this.disconnect();
-        messages(error.code + " " + error.message);
-        this.resetDisplay();
-      });
-  };
-
-  disconnect = () => {
-    this.removeAccount();
-    this.status = -1;
-
-    // @todo Trigger onDisconnect event.
-  };
-
-  // Rendering.
-  resetDisplay = () => {
-    this.displayWalletStatus();
-    this.displayWalletButton();
-  };
-
-  displayWalletStatus = () => {
+    // Display message.
     let message = "";
-
     message += !Boolean(ethereum) ? "No wallet detected." : "";
     message += this.status == 0 ? "Not connected." : "";
     message += this.status == -1 ? "Disconnected." : "";
@@ -69,46 +33,71 @@ class Wallet {
           "</code>"
         : "";
 
-    if (!Boolean(ethereum)) {
-      // Install wallet suggestion.
-      message += "<br>";
-      message += "Please install one provider such as ";
-      message += '<a target="_blank" href="https://frame.sh/">Frame.sh</a>';
-      message += " or ";
-      message +=
-        '<a target="_blank" href="https://metamask.io/">Metamask.io</a>';
-    }
-
-    messages(message);
+    this.messenger.new(message);
   };
 
-  displayWalletButton = () => {
-    this.element.disabled = !Boolean(ethereum);
+  // Element.
+  label = () => {
     this.element.innerHTML =
       this.status == -1
         ? "Reconnect"
         : this.status == 1
         ? "Disconnect"
         : "Connect";
-    this.element.addEventListener("click", this.onClick, true);
+  };
+
+  // Utility.
+  connect = async () => {
+    await ethereum
+      .request({ method: "eth_requestAccounts" })
+      .then((accounts) => {
+        this.messenger.new("Wallet connected successfully");
+        this.setAccount(accounts[0]);
+        this.status = 1;
+        this.label();
+      })
+      .catch((error) => {
+        this.messenger.new(error.code + " " + error.message, 0);
+        this.disconnect();
+        this.label();
+      });
+  };
+
+  disconnect = () => {
+    this.messenger.new("Wallet disconnected");
+    this.removeAccount();
+    this.status = -1;
+    this.label();
+  };
+
+  // State.
+  getAccount = () => {
+    return this.storage.getItem(this.stateKey);
+  };
+
+  setAccount = (value) => {
+    this.storage.setItem(this.stateKey, value);
+  };
+
+  removeAccount = () => {
+    this.storage.removeItem(this.stateKey);
   };
 
   // Events.
-  onClick = async () => {
+  onClick = () => {
     this.element.disabled = true;
 
-    if (this.status !== 1) {
-      // Try to connect.
-      this.element.innerText = "Loading...";
-      this.connect();
-    } else {
+    if (this.status === 1) {
       // Disconnect.
       this.element.innerText = "Disconnecting...";
       this.disconnect();
+    } else {
+      // Try to connect.
+      this.element.innerText = "Loading...";
+      this.connect();
     }
 
-    // Reset button.
-    this.resetDisplay();
+    this.element.disabled = false;
   };
 }
 
