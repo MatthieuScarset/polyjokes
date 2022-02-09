@@ -6,8 +6,7 @@ const initialize = () => {
   // Connect button.
   const walletButton = document.getElementById("walletButton");
   const wallet = new Wallet(walletButton, storage);
-  wallet.displayWalletStatus();
-  wallet.displayWalletButton();
+  wallet.resetDisplay();
 };
 
 window.addEventListener("DOMContentLoaded", initialize);
