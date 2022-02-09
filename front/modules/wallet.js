@@ -58,7 +58,7 @@ class Wallet {
     let message = "";
 
     message += this.status
-      ? "Connected: " + this.getAccount()
+      ? "Connected: " + "<br>" + "<code>" + this.getAccount() + "</code>"
       : !Boolean(ethereum)
       ? "No wallet detected."
       : "Not connected.";

@@ -2,27 +2,74 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>My Dapp</title>
-    <link rel="icon" type="image/png" href="metamask-fox.svg" />
-    <link rel="stylesheet" href="metamask.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Polyjokes</title>
+    <meta
+      name="description"
+      content="An amazing dapp to make your life better."
+    />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Matthieu SCARSET" />
+    <link rel="icon" type="image/png" href="icon.svg" />
+    <link rel="stylesheet" href="styles.css" type="text/css" />
   </head>
 
-  <body>
-    <main class="container-fluid">
-      <header>
-        <h1 class="text-center">Hello world</h1>
+  <body class="break-all">
+    <header
+      class="max-w-4xl m-auto flex flex-row items-stretch justify-between"
+    >
+      <div class="flex justify-start lg:w-0 lg:flex-1">
+        <a id="logo" class="py-6" href="/">
+          <span class="sr-only">Workflow</span>
+          <img class="h-8 w-auto sm:h-10" src="icon.svg" alt="Logo" />
+        </a>
+      </div>
+      <div class="-mr-2 -my-2 md:hidden">
+        <button
+          type="button"
+          class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open menu</span>
+          <svg
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
 
-        <nav role="main">
-          <button id="walletButton" disabled>Connect</button>
-        </nav>
-      </header>
+      <nav class="hidden md:flex space-x-10" role="main">
+        <button id="walletButton" disabled>Connect</button>
+      </nav>
+    </header>
+
+    <main class="max-w-4xl m-auto py-6 border-t-2 border-b-2 border-gray-100">
+      <h1 id="contractName" tabindex="0">Contract</h1>
+
+      <section id="messages">
+        <!-- Section required by `modules/messages.js` -->
+      </section>
     </main>
 
-    <footer>
-      <!-- Messages -->
-      <section id="messages"></section>
+    <footer
+      class="max-w-4xl m-auto flex flex-row items-stretch justify-between"
+    >
+      <p class="py-6"><small>Copyright Matthieu SCARSET &copy; 2022</small></p>
     </footer>
 
     <script type="module" src="main.js" defer></script>
+    <script src="https://cdn.tailwindcss.com" defer></script>
   </body>
 </html>
