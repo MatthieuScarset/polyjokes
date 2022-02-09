@@ -2,15 +2,16 @@
   "name": "polyjokes",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MatthieuScarset/polyjokes.git"
   },
-  "author": "Matthieu SCARSET",
+  "author": {
+    "name": "Matthieu SCARSET",
+    "email": "m@matthieuscarset.com",
+    "url": "https://matthieuscarset.com"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MatthieuScarset/polyjokes/issues"
@@ -23,10 +24,14 @@
     "chai": "^4.3.6",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.4",
-    "hardhat": "^2.8.3"
-  },
-  "dependencies": {
+    "hardhat": "^2.8.3",
     "@openzeppelin/contracts": "^4.4.2",
     "dotenv": "^16.0.0"
+  },
+  "dependencies": {},
+  "scripts": {
+    "html": "cp -R src/*.html dist/",
+    "server": "php -S localhost:8080 -t front/",
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
