@@ -1,7 +1,5 @@
 import { Messenger } from "./messenger.js";
 
-const { ethereum } = window;
-
 class Wallet {
   constructor(domElement, localStorage = null) {
     this.element = domElement;
@@ -12,6 +10,23 @@ class Wallet {
   }
 
   initialize = () => {
+    const { ethereum } = window;
+
+    if (!Boolean(ethereum)) {
+      // Install wallet suggestion.
+      let message = "";
+      message += "<b>Missing Ethereum provider.</b>";
+      message += "<br>";
+      message += "Please install one provider such as ";
+      message += '<a target="_blank" href="https://frame.sh/">Frame.sh</a>';
+      message += " or ";
+      message +=
+        '<a target="_blank" href="https://metamask.io/">Metamask.io</a>';
+
+      this.messenger.new(message);
+      return FALSE;
+    }
+
     // Attach click event.
     this.element.addEventListener("click", this.onClick, true);
 
@@ -48,7 +63,7 @@ class Wallet {
 
   // Utility.
   connect = async () => {
-    await ethereum
+    await window.ethereum
       .request({ method: "eth_requestAccounts" })
       .then((accounts) => {
         this.messenger.new("Wallet connected successfully");
