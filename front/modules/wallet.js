@@ -55,20 +55,30 @@ class Wallet {
   };
 
   displayWalletStatus = () => {
-    messages(
-      this.status ? "Connected: " + this.getAccount() : "Not connected."
-    );
+    let message = "";
+
+    message += this.status
+      ? "Connected: " + this.getAccount()
+      : !Boolean(ethereum)
+      ? "No wallet detected."
+      : "Not connected.";
+
+    if (!Boolean(ethereum)) {
+      // Install wallet suggestion.
+      message += "<br>";
+      message += "Please install one provider such as ";
+      message += '<a target="_blank" href="https://frame.sh/">Frame.sh</a>';
+      message += " or ";
+      message +=
+        '<a target="_blank" href="https://metamask.io/">Metamask.io</a>';
+    }
+
+    messages(message);
   };
 
   displayWalletButton = () => {
     this.element.disabled = !Boolean(ethereum);
-
-    this.element.innerHTML = !Boolean(ethereum)
-      ? "Install metamask"
-      : this.status
-      ? "Disconnect"
-      : "Connect";
-
+    this.element.innerHTML = this.status ? "Disconnect" : "Connect";
     this.element.addEventListener("click", this.onClick, true);
   };
 
@@ -84,13 +94,10 @@ class Wallet {
       // Disconnect.
       this.element.innerText = "Disconnecting...";
       this.disconnect();
-      this.displayWalletButton();
-      messages("Disconnected.");
     }
 
     // Reset button.
-    this.displayWalletStatus();
-    this.displayWalletButton();
+    this.resetDisplay();
   };
 }
 
